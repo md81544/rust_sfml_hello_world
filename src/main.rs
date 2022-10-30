@@ -1,5 +1,5 @@
 use sfml::graphics::{
-    Color, RenderTarget, RenderWindow, Font, Text, Transformable,
+    Color, RenderTarget, RenderWindow, Font, Text, Transformable, Texture, Sprite
 };
 use sfml::system::{Vector2i, Vector2f};
 use sfml::window::{ContextSettings, Event, Key, Style};
@@ -15,6 +15,7 @@ fn main() {
     window.set_vertical_sync_enabled(true);
     window.set_position(Vector2i::new(50, 50));
 
+    // Load Resources
     let font = Font::from_file("lc_font.ttf").unwrap();
     let mut msg_main = Text::default();
     msg_main.set_font(&font);
@@ -32,6 +33,14 @@ fn main() {
     msg_sub.set_fill_color(Color::YELLOW);
     msg_sub.set_string("All your base are belong to us");
 
+    let ship_texture = Texture::from_file("spaceship.png").unwrap();
+    let mut ship = Sprite::new();
+    ship.set_texture(&ship_texture, true);
+    ship.set_position(Vector2f::new(305.,230.));
+    ship.set_origin(Vector2f::new(35.,35.));
+    let mut ship_rotation = 0.;
+
+    // Main Loop
     while window.is_open() {
         while let Some(event) = window.poll_event() {
             match event {
@@ -57,8 +66,14 @@ fn main() {
         if msg_sub_pos > 400. || msg_sub_pos < 110. {
             msg_sub_delta = -msg_sub_delta;
         }
+        ship_rotation += 1.;
+        if ship_rotation >= 360. {
+            ship_rotation = 0.;
+        }
+        ship.set_rotation(ship_rotation);
         msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
         window.clear(Color::BLACK);
+        window.draw(&ship);
         window.draw(&msg_main);
         window.draw(&msg_sub);
         window.display();
