@@ -1,8 +1,8 @@
 use sfml::graphics::{
-    Color, RectangleShape, RenderTarget, RenderWindow, Font, Shape, Sprite, Text, Transformable, View,
+    Color, RenderTarget, RenderWindow, Font, Text, Transformable,
 };
-use sfml::system::{Clock, Vector2i, Vector2f};
-use sfml::window::{mouse, ContextSettings, Event, Key, Style};
+use sfml::system::{Vector2i, Vector2f};
+use sfml::window::{ContextSettings, Event, Key, Style};
 
 fn main() {
     let mut window = RenderWindow::new(
@@ -25,9 +25,17 @@ fn main() {
     while window.is_open() {
         while let Some(event) = window.poll_event() {
             match event {
-                Event::KeyReleased { code, .. } => {
-                    if code == Key::ESCAPE {
-                        window.close();
+                Event::KeyReleased { code, ctrl, .. } => {
+                    match code {
+                        Key::ESCAPE => {
+                            window.close();
+                        },
+                        Key::Q => {
+                            if ctrl {
+                                window.close();
+                            }
+                        },
+                        _ => {}
                     }
                 },
                 _ => {} // ignore other events
