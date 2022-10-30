@@ -1,5 +1,5 @@
 [package]
-name = "sfml"
+name = "rust_sfml_hello_world"
 version = "0.1.0"
 edition = "2021"
 
