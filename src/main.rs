@@ -23,10 +23,11 @@ fn main() {
     msg_main.set_fill_color(Color::GREEN);
     msg_main.set_string("Hello world!");
 
+    let mut msg_sub_pos = 90.;
     let mut msg_sub = Text::default();
     msg_sub.set_font(&font);
     msg_sub.set_character_size(30);
-    msg_sub.set_position(Vector2f::new(20., 90.));
+    msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
     msg_sub.set_fill_color(Color::YELLOW);
     msg_sub.set_string("All your base are belong to us");
 
@@ -50,6 +51,9 @@ fn main() {
                 _ => {} // ignore other events
             }
         }
+        msg_sub_pos += 0.3;
+        msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
+        window.clear(Color::BLACK);
         window.draw(&msg_main);
         window.draw(&msg_sub);
         window.display();
