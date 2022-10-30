@@ -35,6 +35,7 @@ fn main() {
     while window.is_open() {
         while let Some(event) = window.poll_event() {
             match event {
+                Event::Closed => window.close(),
                 Event::KeyReleased { code, ctrl, shift, alt, .. } => {
                     println!("code={code:?} ctrl={ctrl:?} shift={shift:?} alt={alt:?}");
                     match code {
