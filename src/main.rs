@@ -16,16 +16,25 @@ fn main() {
     window.set_position(Vector2i::new(50, 50));
 
     let font = Font::from_file("lc_font.ttf").unwrap();
-    let mut msg = Text::default();
-    msg.set_font(&font);
-    msg.set_character_size(40);
-    msg.set_position(Vector2f::new(20., 20.));
-    msg.set_fill_color(Color::GREEN);
-    msg.set_string("Hello world!");
+    let mut msg_main = Text::default();
+    msg_main.set_font(&font);
+    msg_main.set_character_size(60);
+    msg_main.set_position(Vector2f::new(20., 20.));
+    msg_main.set_fill_color(Color::GREEN);
+    msg_main.set_string("Hello world!");
+
+    let mut msg_sub = Text::default();
+    msg_sub.set_font(&font);
+    msg_sub.set_character_size(30);
+    msg_sub.set_position(Vector2f::new(20., 90.));
+    msg_sub.set_fill_color(Color::YELLOW);
+    msg_sub.set_string("All your base are belong to us");
+
     while window.is_open() {
         while let Some(event) = window.poll_event() {
             match event {
-                Event::KeyReleased { code, ctrl, .. } => {
+                Event::KeyReleased { code, ctrl, shift, alt, .. } => {
+                    println!("code={code:?} ctrl={ctrl:?} shift={shift:?} alt={alt:?}");
                     match code {
                         Key::ESCAPE => {
                             window.close();
@@ -41,7 +50,8 @@ fn main() {
                 _ => {} // ignore other events
             }
         }
-        window.draw(&msg);
+        window.draw(&msg_main);
+        window.draw(&msg_sub);
         window.display();
     }
 }
