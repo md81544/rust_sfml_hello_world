@@ -18,12 +18,12 @@ fn main() {
     let font = Font::from_file("lc_font.ttf").unwrap();
     let mut msg_main = Text::default();
     msg_main.set_font(&font);
-    msg_main.set_character_size(60);
+    msg_main.set_character_size(80);
     msg_main.set_position(Vector2f::new(20., 20.));
     msg_main.set_fill_color(Color::GREEN);
     msg_main.set_string("Hello world!");
 
-    let mut msg_sub_pos = 90.;
+    let mut msg_sub_pos = 110.;
     let mut msg_sub_delta = 0.5;
     let mut msg_sub = Text::default();
     msg_sub.set_font(&font);
@@ -53,7 +53,7 @@ fn main() {
             }
         }
         msg_sub_pos += msg_sub_delta;
-        if msg_sub_pos > 400. || msg_sub_pos < 90. {
+        if msg_sub_pos > 400. || msg_sub_pos < 110. {
             msg_sub_delta = -msg_sub_delta;
         }
         msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
