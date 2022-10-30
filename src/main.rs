@@ -24,6 +24,7 @@ fn main() {
     msg_main.set_string("Hello world!");
 
     let mut msg_sub_pos = 90.;
+    let mut msg_sub_delta = 0.5;
     let mut msg_sub = Text::default();
     msg_sub.set_font(&font);
     msg_sub.set_character_size(30);
@@ -51,7 +52,10 @@ fn main() {
                 _ => {} // ignore other events
             }
         }
-        msg_sub_pos += 0.3;
+        msg_sub_pos += msg_sub_delta;
+        if msg_sub_pos > 400. || msg_sub_pos < 90. {
+            msg_sub_delta = -msg_sub_delta;
+        }
         msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
         window.clear(Color::BLACK);
         window.draw(&msg_main);
