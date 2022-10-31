@@ -4,9 +4,11 @@
 This is a bare-bones SFML "hello world" to show how to create an SFML application in Rust. Warning: there may well be glaring Rust errors here, I am using this as a learning project :)
 
 ## Pre-requisites
+The following assumes this is being run in Linux (including WSL).
+
 Ensure you have `libcsfml-dev` and `libsfml-dev` installed.
 
-If you are running this from WSL2, and you see errors like the following,
+If you are running this from WSL, and you see errors like the following,
 
 ```
 Failed to create an OpenGL context for this window
