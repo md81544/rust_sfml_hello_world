@@ -6,8 +6,12 @@ use sfml::window::{ContextSettings, Event, Key, Style};
 use rand::Rng;
 
 fn main() {
+
+    let window_width = 640;
+    let window_height = 480;
+
     let mut window = RenderWindow::new(
-        (640, 480),
+        (window_width, window_height),
         "Hello world",
         Style::CLOSE,
         &ContextSettings::default(),
@@ -37,7 +41,7 @@ fn main() {
     let ship_texture = Texture::from_file("spaceship.png").unwrap();
     let mut ship = Sprite::new();
     ship.set_texture(&ship_texture, true);
-    ship.set_position(Vector2f::new(305.,230.));
+    ship.set_position(Vector2f::new(315.,230.));
     ship.set_origin(Vector2f::new(35.,35.));
     let mut ship_rotation = 0.;
 
@@ -77,7 +81,7 @@ fn main() {
         msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
         window.clear(Color::BLACK);
         for _ in 0..20 {
-            let mut circ = CircleShape::new(rng.gen_range(0.0..20.0), 30);
+            let mut circ = CircleShape::new(rng.gen_range(0.0..16.0), 30);
             circ.set_fill_color(Color::rgb(
                 rng.gen_range(0..128),
                 rng.gen_range(0..128),
