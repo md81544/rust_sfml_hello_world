@@ -1,8 +1,9 @@
 use sfml::graphics::{
-    Color, RenderTarget, RenderWindow, Font, Text, Transformable, Texture, Sprite
+    Color, RenderTarget, RenderWindow, Font, Text, Transformable, Texture, Sprite, CircleShape, Shape
 };
 use sfml::system::{Vector2i, Vector2f};
 use sfml::window::{ContextSettings, Event, Key, Style};
+use rand::Rng;
 
 fn main() {
     let mut window = RenderWindow::new(
@@ -40,6 +41,8 @@ fn main() {
     ship.set_origin(Vector2f::new(35.,35.));
     let mut ship_rotation = 0.;
 
+    let mut rng = rand::thread_rng();
+
     // Main Loop
     while window.is_open() {
         while let Some(event) = window.poll_event() {
@@ -48,7 +51,7 @@ fn main() {
                 Event::KeyReleased { code, ctrl, shift, alt, .. } => {
                     println!("code={code:?} ctrl={ctrl:?} shift={shift:?} alt={alt:?}");
                     match code {
-                        Key::ESCAPE => {
+                        Key::Escape => {
                             window.close();
                         },
                         Key::Q => {
@@ -73,6 +76,16 @@ fn main() {
         ship.set_rotation(ship_rotation);
         msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
         window.clear(Color::BLACK);
+        for _ in 0..20 {
+            let mut circ = CircleShape::new(rng.gen_range(0.0..20.0), 30);
+            circ.set_fill_color(Color::rgb(
+                rng.gen_range(0..128),
+                rng.gen_range(0..128),
+                rng.gen_range(0..128)
+            ));
+            circ.set_position(Vector2f::new(rng.gen_range(0.0..640.0), rng.gen_range(0.0..480.0)));
+            window.draw(&circ);
+        }
         window.draw(&ship);
         window.draw(&msg_main);
         window.draw(&msg_sub);
