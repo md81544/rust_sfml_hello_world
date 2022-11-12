@@ -13,7 +13,7 @@ fn main() {
     let mut window = RenderWindow::new(
         (window_width, window_height),
         "Hello world",
-        Style::CLOSE,
+        Style::DEFAULT,
         &ContextSettings::default(),
     );
     window.set_framerate_limit(60);
@@ -81,13 +81,14 @@ fn main() {
         msg_sub.set_position(Vector2f::new(20., msg_sub_pos));
         window.clear(Color::BLACK);
         for _ in 0..20 {
-            let mut circ = CircleShape::new(rng.gen_range(0.0..16.0), 30);
+            let mut circ = CircleShape::new(rng.gen_range(0.0..25.0), 30);
             circ.set_fill_color(Color::rgb(
                 rng.gen_range(0..128),
                 rng.gen_range(0..128),
                 rng.gen_range(0..128)
             ));
-            circ.set_position(Vector2f::new(rng.gen_range(0.0..640.0), rng.gen_range(0.0..480.0)));
+            circ.set_position(Vector2f::new(
+                rng.gen_range(0.0..window_width as f32), rng.gen_range(0.0..window_height as f32)));
             window.draw(&circ);
         }
         window.draw(&ship);
