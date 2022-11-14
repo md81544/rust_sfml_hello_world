@@ -2,13 +2,18 @@ use sfml::graphics::{
     Color, RenderTarget, RenderWindow, Font, Text, Transformable, Texture, Sprite, CircleShape, Shape
 };
 use sfml::system::{Vector2i, Vector2f};
-use sfml::window::{ContextSettings, Event, Key, Style};
+use sfml::window::{ContextSettings, Event, Key, Style, VideoMode};
 use rand::Rng;
 
 fn main() {
 
+    let screen_width  = VideoMode::desktop_mode().width;
+    let screen_height = VideoMode::desktop_mode().height;
+    println!("{} x {}", screen_width, screen_height);
+    let ratio: f32 = screen_width as f32 / screen_height as f32;
+
     let window_width = 640;
-    let window_height = 480;
+    let window_height = ( window_width as f32 /ratio ) as u32;
 
     let mut window = RenderWindow::new(
         (window_width, window_height),
@@ -17,7 +22,6 @@ fn main() {
         &ContextSettings::default(),
     );
     window.set_framerate_limit(60);
-    window.set_vertical_sync_enabled(true);
     window.set_position(Vector2i::new(50, 50));
 
     // Load Resources
@@ -70,7 +74,7 @@ fn main() {
             }
         }
         msg_sub_pos += msg_sub_delta;
-        if msg_sub_pos > 400. || msg_sub_pos < 110. {
+        if msg_sub_pos > window_height as f32 - 40. || msg_sub_pos < 110. {
             msg_sub_delta = -msg_sub_delta;
         }
         ship_rotation += 1.;
